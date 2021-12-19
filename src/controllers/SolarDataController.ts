@@ -22,20 +22,21 @@ export const SolarDataController = Router();
     });*/
 
     SolarDataController.get("/", async (req , res, next) => {
-        let date : Date = new Date();
-        let nextDay : Date = new Date();
+        const date : Date = new Date();
+        const nextDay : Date = new Date();
+        console.log(req.query);
 
         if(req.query.start && !Array.isArray(req.query.start)){
-            date = new Date(req.query.start.toString());
-            nextDay = new Date(req.query.start.toString());
+            date.setTime(parseInt(req.query.start.toString()));
+            nextDay.setTime(parseInt(req.query.start.toString()));
         }
         if(req.query.end && !Array.isArray(req.query.end)){
-            nextDay = new Date(req.query.end.toString());
+            nextDay.setTime(parseInt(req.query.end.toString()));
         }
 
         date.setHours(0,0,0,0);
         nextDay.setHours(24,0,0,0);
-
+        
         try {
             res.json(await SolarData.findAll({
                 where : {
