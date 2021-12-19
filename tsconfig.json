@@ -1,27 +1,27 @@
 {
-"experimentalDecorators": true,
-"compileOnSave": true,
-"outDir": "dist",
-"compilerOptions": {
-    "outDir": "dist",
-    "noEmit": false,
     "experimentalDecorators": true,
-    "target": "es6",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "noUnusedLocals": true,
-    "sourceMap": true,
-    "declaration": false,
-    "pretty": true,
-    "strictNullChecks": true,
-    "skipLibCheck": true,
-    "strictPropertyInitialization": true
-},
-"include": [
-    "src/**/*"
-],
-"exclude": [
-    "node_modules"
-]
+    "compileOnSave": false,
+    "outDir": "dist",
+    "compilerOptions": {
+        "outDir": "dist",
+        "noEmit": false,
+        "experimentalDecorators": true,
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "noUnusedLocals": true,
+        "sourceMap": true,
+        "declaration": false,
+        "pretty": true,
+        "strictNullChecks": true,
+        "skipLibCheck": true,
+        "strictPropertyInitialization": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }

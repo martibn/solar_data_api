@@ -1,7 +1,7 @@
 import { Column, Model, Table } from 'sequelize-typescript';
 
 @Table({tableName: "solar_data", timestamps:false})
-export class SolarData extends Model<SolarData> {
+export class SolarData extends Model<SolarData,SolarData> {
 
     @Column({primaryKey:true})
     timestamp!: Date;
@@ -17,4 +17,8 @@ export class SolarData extends Model<SolarData> {
 
     @Column
     power_consumption?: number;
+
+    public json(){
+        return JSON.parse(JSON.stringify(this));
+    }
 };
