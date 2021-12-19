@@ -1,8 +1,8 @@
 import { CronJob } from "cron";
 import axios from 'axios';
 import { SolarData } from "../models/SolarData";
-import GetArchiveDataMapper from "../mapper/GetArchiveDataMapper";
-import { GetArchiveData } from "../model/GetArchiveData";
+import SolarDataMapper from "../mapper/GetArchiveDataMapper";
+import { GetArchiveData } from "../dto/GetArchiveData";
 
 export class DataCron {
     private cron : CronJob;
@@ -44,7 +44,7 @@ export class DataCron {
         },
       })
       .then(response => {
-          const models : SolarData[] = GetArchiveDataMapper.dtoToModel(response.data);
+          const models : SolarData[] = SolarDataMapper.getArchiveDataMapperToModel(response.data);
 
           SolarData.bulkCreate(models.map(x => x.json()),
             {

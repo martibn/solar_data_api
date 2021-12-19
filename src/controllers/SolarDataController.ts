@@ -1,5 +1,8 @@
+import axios from 'axios';
 import { Router } from 'express';
 import { Op } from 'sequelize';
+import { GetPowerFlowRealtimeData } from '../dto/GetPowerFlowRealtimeData';
+import GetArchiveDataMapper from '../mapper/GetArchiveDataMapper';
 import { SolarData } from '../models/SolarData';
 
 export const SolarDataControllerUrl: string = "/solar_data";
@@ -48,4 +51,15 @@ export const SolarDataController = Router();
         } catch (e) {
             next(e);
         }
+    });
+
+    SolarDataController.get("/current", async (req , res, next) => {
+        await axios.get<GetPowerFlowRealtimeData>("http://192.168.1.139/solar_api/v1/GetPowerFlowRealtimeData.fcgi", {
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+      .then(response => {
+          res.json(GetArchiveDataMapper.getPowerFlowRealtimeDataMapperToDTO(response.data));
+      });
     });
