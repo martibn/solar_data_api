@@ -39,62 +39,17 @@ export default class SolarDataMapper{
         const current: SolarData = new SolarData();
         current.timestamp = new Date(dto.Head.Timestamp);
 
-        if(dto.Body.Data.Site.P_Grid > 0){
-            current.power_consumption = dto.Body.Data.Site.P_PV + dto.Body.Data.Site.P_Grid;
+        current.power_consumption = Math.round((Math.abs(dto.Body.Data.Site.P_Load + Number.EPSILON) * 100) / 100);
+        current.power_generated = Math.round((dto.Body.Data.Inverters["1"].P + Number.EPSILON) * 100) / 100;
+
+        if(dto.Body.Data.Site.P_Grid >= 0){
             current.grid_injection = 0;
-            current.grid_consumption = dto.Body.Data.Site.P_Grid;
+            current.grid_consumption = Math.round((dto.Body.Data.Site.P_Grid + Number.EPSILON) * 100) / 100;
         }else{
-            current.power_consumption = dto.Body.Data.Site.P_PV + dto.Body.Data.Site.P_Grid;
-            current.grid_injection = -1 * dto.Body.Data.Site.P_Grid;
+            current.grid_injection = Math.round((Math.abs(dto.Body.Data.Site.P_Grid) + Number.EPSILON) * 100) / 100;;
             current.grid_consumption = 0;
         }
         
-        current.power_generated = dto.Body.Data.Inverters["1"].P;
-
-        /*
-        {
-        "Body":{
-            "Data":{
-                "Inverters":{
-                    "1":{
-                    "DT":78,
-                    "E_Day":11624,
-                    "E_Total":493677,
-                    "E_Year":493677.09375,
-                    "P":38
-                    }
-                },
-                "Site":{
-                    "E_Day":11624,
-                    "E_Total":493677,
-                    "E_Year":493677.09375,
-                    "Meter_Location":"grid",
-                    "Mode":"meter",
-                    "P_Akku":null,
-                    "P_Grid":595.12,
-                    "P_Load":-633.12,
-                    "P_PV":38,
-                    "rel_Autonomy":6.002021733636593,
-                    "rel_SelfConsumption":100
-                },
-                "Version":"12"
-            }
-        },
-        "Head":{
-            "RequestArguments":{
-                
-            },
-            "Status":{
-                "Code":0,
-                "Reason":"",
-                "UserMessage":""
-            },
-            "Timestamp":"2021-12-19T17:00:11+01:00"
-        }
-        }
-        */
-        
-
         return current;
     }
 };
