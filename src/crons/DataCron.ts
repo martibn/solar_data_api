@@ -11,7 +11,7 @@ export class DataCron {
 
     constructor() {
 
-        this.cron = new CronJob("*/10 * * * * *", async () => {
+        this.cron = new CronJob("* * * * * *", async () => {
             await SolarData.findAll({
                 limit: 1,
                 order:[['timestamp','DESC']]
