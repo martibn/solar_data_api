@@ -13,7 +13,7 @@ export const SolarDataControllerUrl: string = "/solar_data";
 export const SolarDataController = Router();
 
     SolarDataController.get("/current", async (req , res, next) => {
-            await axios.get<GetPowerFlowRealtimeData>("http://192.168.1.139/solar_api/v1/GetPowerFlowRealtimeData.fcgi", {
+            await axios.get<GetPowerFlowRealtimeData>("http://192.168.1.133/solar_api/v1/GetPowerFlowRealtimeData.fcgi", {
             headers: {
             "Content-Type": "application/json"
             },
@@ -66,7 +66,7 @@ export const SolarDataController = Router();
         }
 
         date.setHours(0,0,0,0);
-        nextDay.setHours(24,0,0,0);
+        nextDay.setHours(23,59,0,0);
         
         try {
             res.json(await SolarDataDaySummary.findAll({

@@ -38,7 +38,7 @@ export class DataCron {
         const nextDate: Date = new Date(this.lastDate.getTime() + (1000 * 3600 * 24) * 16);
         const nowStr : String = nextDate.toLocaleString(undefined, { year: 'numeric', month: 'numeric', day: 'numeric' }).split("/").join(".");
 
-        axios.get<GetArchiveData>("http://192.168.1.139/solar_api/v1/GetArchiveData.cgi?Scope=System&StartDate=" + this.lastDataStr + "&EndDate=" + nowStr + "&Channel=PowerReal_PAC_Sum&Channel=EnergyReal_WAC_Plus_Absolute&Channel=EnergyReal_WAC_Minus_Absolute", {
+        axios.get<GetArchiveData>("http://192.168.1.133/solar_api/v1/GetArchiveData.cgi?Scope=System&StartDate=" + this.lastDataStr + "&EndDate=" + nowStr + "&Channel=PowerReal_PAC_Sum&Channel=EnergyReal_WAC_Plus_Absolute&Channel=EnergyReal_WAC_Minus_Absolute", {
         headers: {
           "Content-Type": "application/json"
         },
